@@ -2,17 +2,17 @@
 
   \begin{block}{Extensiones inmediatas}
     \begin{itemize}
-      \item Predicción temporal: transición de interpolación a pronóstico ($t + \Delta t$)
-      \item Incorporación de variables adicionales: humedad relativa, radiación solar
-      \item Análisis de sensibilidad a resolución de malla ($R$ más fina)
+      \item \textcolor{ColorMorado}{Predicción temporal}: transición de interpolación a pronóstico ($t + \Delta t$)
+      \item \textcolor{ColorMorado}{Variables adicionales}: humedad relativa, radiación solar
+      \item \textcolor{ColorMorado}{Análisis de sensibilidad} a resolución de malla ($R$ más fina)
     \end{itemize}
   \end{block}
 
   \begin{block}{Aplicaciones emergentes}
     \begin{itemize}
-      \item Extensión a otras regiones oceanográficas (Pacífico colombiano, cuencas andinas)
-      \item Acoplamiento con modelos de dispersión de contaminantes
-      \item Integración en sistemas operativos de monitoreo ambiental
+      \item \textcolor{ColorTurquesa}{Extensión a otras regiones} oceanográficas (Pacífico colombiano, cuencas andinas)
+      \item \textcolor{ColorTurquesa}{Acoplamiento con modelos} de dispersión de contaminantes
+      \item \textcolor{ColorTurquesa}{Integración en sistemas} operativos de monitoreo ambiental
     \end{itemize}
   \end{block}
 

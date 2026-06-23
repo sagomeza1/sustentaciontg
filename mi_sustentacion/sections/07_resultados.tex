@@ -3,7 +3,7 @@
   \frametitle{Resultados: Desempeño Comparativo}
   
   \begin{block}{Mejor modelo: \texttt{todos\_R01\_L5}}
-    Resolución $R = 0{,}1°$, $\lambda = 5$, datos completos ($\sim$744 reg/est)
+    Resolución $R = 0{,}1°$, $\textcolor{ColorVerdeOliva}{\lambda = 5}$, datos completos ($\sim$744 reg/est)
   \end{block}
   
   \scriptsize
@@ -13,7 +13,7 @@
       \hline
       Modelo & Loss & MSE$_{u_x}$ & MSE$_{u_y}$ & MSE$_p$ & $\mathcal{R}_{NS}$ \\
       \hline
-      \textbf{todos\_R01\_L5} & 0,9261 & 0,4633 & 0,4347 & 1,3688 & \textbf{0,01273} \\
+      \textbf{\textcolor{ColorVerdeOliva}{todos\_R01\_L5}} & 0,9261 & 0,4633 & 0,4347 & 1,3688 & \textbf{\textcolor{ColorRojoVino}{0,01273}} \\
       300xest\_R01\_L5 & 1,1207 & 0,4689 & 0,4647 & 1,6220 & 0,03682 \\
       300xest\_R01\_L10 & 1,1624 & 0,4919 & 0,4966 & 1,6906 & 0,02318 \\
       \hline
@@ -22,8 +22,8 @@
   
   \normalsize
   \begin{itemize}
-    \item Error observacional promedio: 0,7556 (mejor entre todos)
-    \item Residual Navier-Stokes: 0,01273 (máxima coherencia física)
+    \item Error observacional promedio: \alert{0,7556} (mejor entre todos)
+    \item Residual Navier-Stokes: \alert{0,01273} (máxima coherencia física)
   \end{itemize}
   
   \note[item]{Tiempo: 1,5 minutos}

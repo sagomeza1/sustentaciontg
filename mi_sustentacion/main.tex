@@ -16,6 +16,33 @@
 \usetheme{Madrid}
 \usecolortheme{default}
 
+% --- Paleta de Colores Personalizada (Trabajos de Grado) ---
+% Colores Primarios
+\definecolor{ColorVerdeOliva}{HTML}{636F03}   % Énfasis principal / Bullets
+\definecolor{ColorNegroTex}{HTML}{1A171B}     % Texto principal
+\definecolor{ColorRojoVino}{HTML}{B11F16}     % Alertas críticas
+\definecolor{ColorMostaza}{HTML}{ACAA00}      % Énfasis secundario
+\definecolor{ColorCremaBg}{HTML}{F3E7CE}      % Fondos de bloques
+
+% Colores Secundarios
+\definecolor{ColorNaranja}{HTML}{E95D0F}      % Gráficos / Llamados
+\definecolor{ColorAzulOsc}{HTML}{122253}      % Títulos de frames
+\definecolor{ColorTurquesa}{HTML}{0B8689}     % Enlaces
+\definecolor{ColorAzulMed}{HTML}{1472B8}      % Ilustraciones
+\definecolor{ColorMorado}{HTML}{634998}       % Agrupaciones
+
+% Aplicación de colores a elementos Beamer
+\setbeamercolor{frametitle}{fg=ColorAzulOsc, bg=ColorCremaBg}
+\setbeamercolor{title}{fg=ColorAzulOsc}
+\setbeamercolor{section in toc}{fg=ColorVerdeOliva}
+\setbeamercolor{itemize item}{fg=ColorVerdeOliva}
+\setbeamercolor{itemize subitem}{fg=ColorVerdeOliva}
+\setbeamercolor{structure}{fg=ColorAzulOsc}
+\setbeamercolor{normal text}{fg=ColorNegroTex}
+\setbeamercolor{alerted text}{fg=ColorRojoVino}
+\setbeamercolor{block title}{bg=ColorVerdeOliva, fg=white}
+\setbeamercolor{block body}{bg=ColorCremaBg, fg=ColorNegroTex}
+
 % === INFORMACIÓN DEL DOCUMENTO ===
 \title{Modelado de Procesos Oceanográficos en el Caribe\\con Redes Neuronales Informadas por Física (PINN)}
 \author{Autor}

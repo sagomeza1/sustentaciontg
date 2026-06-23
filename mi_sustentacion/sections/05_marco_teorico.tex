@@ -1,4 +1,4 @@
-\begin{frame}[fragile,shrink=5]
+\begin{frame}[fragile]
   \frametitle{Marco Teórico: Ecuaciones de Navier-Stokes}
   
   Conservación de momento y continuidad en fluidos viscosos:
@@ -11,7 +11,7 @@
   Donde: $\mathbf{u}$ = velocidad, $p$ = presión, $\rho$ = densidad, $\mathbf{f}$ = fuerzas externas (Coriolis).
   
   \begin{block}{Reto clave}
-    El término convectivo $(\mathbf{u} \cdot \nabla \mathbf{u})$ introduce no linealidad que dificulta soluciones analíticas.
+    El término convectivo \textcolor{ColorRojoVino}{$(\mathbf{u} \cdot \nabla \mathbf{u})$} introduce \textcolor{ColorRojoVino}{no linealidad} que dificulta soluciones analíticas.
   \end{block}
   
   \note[item]{Tiempo estimado: 3 minutos}
@@ -20,15 +20,15 @@
 \begin{frame}[fragile]
   \frametitle{PINNs: Redes Neuronales Informadas por Física}
   
-  \begin{block}{Concepto clave}
+  \begin{block}{\textcolor{ColorVerdeOliva}{Concepto clave}}
     Las PINNs codifican ecuaciones diferenciales parciales directamente en su función de pérdida, garantizando que las predicciones respeten leyes físicas.
   \end{block}
   
   \begin{itemize}
-    \item Combinan datos observados con restricciones físicas
-    \item No requieren volúmenes masivos de datos
-    \item Conocimiento físico actúa como regularizador
-    \item 30\% más precisión que NWP en casos de intensificación rápida
+    \item \textcolor{ColorVerdeOliva}{Combinan datos observados con restricciones físicas}
+    \item \textcolor{ColorVerdeOliva}{No requieren volúmenes masivos de datos}
+    \item \textcolor{ColorVerdeOliva}{Conocimiento físico actúa como regularizador}
+    \item \alert{30\% más precisión que NWP} en casos de intensificación rápida
   \end{itemize}
   
   \note[item]{Tiempo estimado: 2 minutos}
