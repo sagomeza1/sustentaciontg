@@ -1,0 +1,38 @@
+% --------- Resumen ----------
+\begin{flushleft} % Asegura alineación izquierda para todo
+\begin{center}
+\textbf{Resumen}
+\end{center}
+\vspace{0.8\baselineskip}
+
+% Este resumen contiene:
+% \begin{itemize}
+%     \item Una introducción de la importancia del trabajo.
+%     \item La descripción del problema y su alcance.
+%     \item Los objetivos generales y específicos.
+%     \item Los métodos.
+%     \item Los resultados.
+%     \item Las conclusiones de lo encontrado en el trabajo de investigación.
+% \end{itemize}
+
+% Se debe tener en cuenta:
+% \begin{itemize}
+%     \item Usar una extensión máxima de 500 palabras.
+%     \item Que el resumen sea analítico, es decir, con información cuantitativa y cualitativa.
+%     \item Al final del resumen se deben usar palabras claves tomadas del texto, las cuales permiten la % recuperación de la información.
+% \end{itemize}
+
+Este proyecto desarrolla y evalúa una Red Neuronal Físicamente Informada (Physics-Informed Neural Network, PINN) para predecir componentes del viento ($u_x$, $u_y$) y presión atmosférica ($p$) en el litoral Caribe colombiano durante diciembre de 2025. El dominio se construyó con datos horarios de estaciones meteorológicas de Datos Abiertos Colombia. El problema abordado consiste en estimar un campo continuo espacio-temporal a partir de observaciones puntuales, incorporando de manera explícita restricciones físicas de las ecuaciones de Navier-Stokes invíscidas en la función de pérdida.
+\vspace{0.5em}
+
+La metodología comprendió la carga y depuración de datos con exclusión de cuatro estaciones por criterios de calidad, proyección cartesiana y normalización adimensional, construcción de una malla de colocación para imponer las restricciones físicas en el dominio, entrenamiento de la arquitectura de red neuronal de 12 capas ocultas y 1200 neuronas por capa durante 2000 épocas, y un barrido sistemático de hiperparámetros de resolución de malla y peso físico de las ecuaciones, más una corrida final con la totalidad de los datos disponibles. Se evaluaron 13 experimentos en total.
+
+Los resultados consolidados identifican como mejor configuración global la corrida con cobertura completa de datos (13.392 registros), con error observacional promedio $\bar{MSE}_{obs}=0{,}76$ y residual de Navier-Stokes $0{,}01$. En el subconjunto de 300 registros por estación, la mejor configuración alcanzó $\bar{MSE}_{obs}=0{,}85$. El estudio evidenció una tensión entre ajuste observacional y cumplimiento físico, y mostró que aumentar la cobertura temporal de datos mejora simultáneamente ambos criterios.
+
+\vspace{1em}
+\textbf{Palabras clave:} [Redes Neuronales Físicamente Informadas, PINN, Navier-Stokes, predicción meteorológica, Caribe colombiano, aprendizaje profundo]
+\end{flushleft}
+
+% mínimo 5 y máximo 7 palabras, use lenguaje técnico-científico
+
+

@@ -1,0 +1,18 @@
+\chapter{Conclusiones}
+
+\section{Sintesis integrada}
+
+Esta propuesta de cierre condensa los resultados del estudio en una lectura unificada y no fragmentada. La evidencia obtenida confirma que una PINN con restriccion fisica basada en Navier-Stokes inviscido puede capturar patrones meteorologicos relevantes del Caribe colombiano con datos observacionales dispersos, siempre que el balance entre ajuste a datos y regularizacion fisica se mantenga en una zona intermedia. En ese marco, la configuracion \nolinkurl{PINN_caribe_excl4_todos_R01_L5} se consolida como la referencia mas consistente del trabajo, al combinar el menor error observacional promedio reportado con el residual fisico mas bajo entre las corridas comparables.
+
+Tambien se observa que el desempeno no depende de un unico hiperparametro aislado, sino de la interaccion entre peso fisico, resolucion de malla y volumen de datos. La mejora al pasar de 5.400 a 13.392 registros, sin cambios de arquitectura, sugiere que el regimen experimental todavia estaba condicionado por disponibilidad de datos. De forma complementaria, la restriccion suave de rango mostro un efecto favorable sobre el ajuste observacional y la perdida total en la configuracion evaluada, aunque con un aumento moderado del residual fisico, lo que indica que su aporte es prometedor pero aun requiere ajuste para lograr un compromiso mas estable.
+
+\section{Alcance y proyeccion del estudio}
+
+El alcance de estas conclusiones debe leerse con cautela metodologica. Aunque la aproximacion demuestra viabilidad tecnica y consistencia interna en el dominio analizado, la generalizacion fuera del periodo de entrenamiento es parcial: el comportamiento del viento se mantiene razonablemente estable, mientras que la presion presenta deterioro apreciable en prueba temporal independiente. A esto se suma que el barrido no cubre por completo todos los escenarios previstos, que la validacion comparativa con metodos de referencia no se incluyo en esta etapa y que la formulacion fisica omite el termino de Coriolis, aun cuando el numero de Rossby estimado para el dominio sugiere una influencia no despreciable de la rotacion terrestre.
+
+En consecuencia, la contribucion principal de este trabajo es establecer una linea base solida, trazable y tecnicamente defendible para la modelacion PINN en el Caribe colombiano, junto con una ruta clara de continuidad: completar el espacio experimental pendiente, reforzar la validacion fuera de muestra e incorporar extensiones fisicas y comparativas que permitan evaluar robustez y transferibilidad del modelo mas alla del periodo estudiado.
+
+
+
+
+

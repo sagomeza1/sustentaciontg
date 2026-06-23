@@ -1,0 +1,21 @@
+\chapter*{Planteamiento}
+
+Las estaciones meteorológicas ofrecen mediciones confiables de variables atmosféricas, pero su distribución espacial suele ser irregular y limitada a puntos discretos del territorio. En consecuencia, cuando se requiere analizar el comportamiento del viento y la presión sobre una región completa, aparecen vacíos de información en zonas donde no existe instrumentación. Esta limitación es especialmente relevante cuando se pretende construir mapas continuos de condiciones atmosféricas o realizar predicciones locales con resolución espacio-temporal fina.
+
+En el caso de estudio considerado en este proyecto, se dispone de registros de estaciones meteorológicas ubicadas en la región Caribe de Colombia, obtenidos del portal de Datos Abiertos Colombia (\url{https://www.datos.gov.co/}). Los datos corresponden al mes de diciembre de 2025 y provienen de estaciones del IDEAM distribuidas en los departamentos de Atlántico, Bolívar, Magdalena, Sucre y Córdoba. Cada registro contiene coordenadas geográficas, tiempo, velocidad del viento, dirección del viento, presión y temperatura. Sin embargo, estos datos no describen por sí solos el estado atmosférico continuo del dominio, ya que solo representan observaciones puntuales y no una malla completa del fenómeno.
+
+De esta situación surge la siguiente pregunta de investigación:
+
+\begin{quote}
+¿Cómo construir un modelo basado en PINNs que, a partir de registros meteorológicos dispersos y de las ecuaciones de Navier-Stokes, permita estimar la presión y las componentes del viento sobre una malla espacio-temporal en puntos donde no existen estaciones de medición?
+\end{quote}
+
+\textbf{Justificación}
+
+La región Caribe colombiana presenta una marcada variabilidad climática impulsada por la migración de la Zona de Convergencia Intertropical (ZCIT) y la actividad de la corriente de bajo nivel del Caribe (\textit{Caribbean Low-Level Jet}, CLLJ), localizada entre los 13° y 15°\,N con núcleo por debajo de los 900\,hPa, que registra velocidades máximas del orden de 12\,m/s durante la época seca (diciembre--marzo) y el verano boreal (junio--agosto) \citep{perez2018seabreeze}. Precisamente durante la época seca, los vientos alisios del noreste alcanzan su mayor intensidad sobre la franja costera \citep{ideam2005atlas}, lo que confiere especial relevancia climática al periodo de diciembre de 2025 considerado en este trabajo. Adicionalmente, las fases del ENOS modulan el régimen regional: durante El Niño se registra déficit de precipitación en el Caribe colombiano, en tanto que La Niña induce la respuesta contraria \citep{pabon2017fenomenos}. No obstante esta relevancia, la red de monitoreo del IDEAM en los cinco departamentos del área de estudio (Atlántico, Bolívar, Magdalena, Sucre y Córdoba) cuenta únicamente con 18 estaciones válidas distribuidas sobre un dominio de 404,7\,km (norte--sur) por 252,2\,km (este--oeste), lo que equivale a una densidad aproximada de 1,8 estaciones por cada 10.000\,km², insuficiente para caracterizar la variabilidad espacial continua del campo de viento y presión, como se ilustra en la Figura~\ref{fig:mapa_estaciones}.
+
+La relevancia del problema radica en que una estimación continua del campo de viento y presión mejora la interpretación de fenómenos atmosféricos locales y sirve como soporte para tareas de monitoreo, planeación urbana y análisis ambiental. Desde el punto de vista computacional, una PINN ofrece la ventaja de combinar observaciones reales con conocimiento físico, evitando depender exclusivamente de interpolaciones estadísticas o de simulaciones numéricas de alto costo.
+
+Adicionalmente, la descomposición de la velocidad y la dirección del viento en componentes cartesianas permite representar el flujo de forma más adecuada para el aprendizaje del modelo, mientras que la incorporación explícita del tiempo hace posible estudiar la evolución del sistema sobre una malla espacio-temporal. Por ello, el proyecto se justifica como un aporte metodológico para reconstruir condiciones atmosféricas locales con coherencia física en zonas parcialmente observadas.
+
+

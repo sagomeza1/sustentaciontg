@@ -1,0 +1,47 @@
+\begin{frame}[fragile,shrink=5]
+  \frametitle{Antecedentes: Métodos Tradicionales}
+  
+  \begin{block}{Modelos Numéricos (NWP)}
+    Resuelven Navier-Stokes en mallas de alta resolución ($\sim$9 km).
+    \begin{itemize}
+      \item Costo: 2.5 millones horas CPU/día (ECMWF)
+      \item Ventana: predicción $\approx$ 10 días (sensibilidad caótica)
+      \item Limitación: necesita condiciones iniciales altamente precisas
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Métodos Estadísticos}
+    ARIMA, Procesos Gaussianos
+    \begin{itemize}
+      \item ✓ Eficaces a corto plazo ($<$72 horas)
+      \item ✗ Desconectados de física fundamental
+      \item ✗ Fallan ante eventos extremos sin precedentes
+    \end{itemize}
+  \end{block}
+  
+  \note[item]{Tiempo: 2 minutos}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Antecedentes: Enfoques Modernos}
+  
+  \begin{block}{Machine Learning Convencional (GraphCast, FourCastNet)}
+    \begin{itemize}
+      \item ✓ Rápidos: predicciones en minutos (vs. horas en NWP)
+      \item ✓ Entrenados con décadas de datos ERA5
+      \item ✗ Inconsistencias físicas: $\sim$5\% violación de energía
+      \item ✗ Caja negra: imposible explicabilidad física
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Redes Neuronales Informadas por Física (PINNs)}
+    Paradigma híbrido: celeridad del ML + rigor de EDP
+    \begin{itemize}
+      \item ✓ 30\% más precisión que NWP en casos críticos
+      \item ✓ Garantiza coherencia física
+      \item ✓ Requiere menos datos (conocimiento físico como regularizador)
+    \end{itemize}
+  \end{block}
+  
+  \note[item]{Tiempo: 2 minutos}
+\end{frame}

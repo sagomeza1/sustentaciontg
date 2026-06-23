@@ -1,0 +1,122 @@
+% ===== FRAME 13: Tabla de Desempeño Comparativo (MANTENER) =====
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Resultados: Desempeño Comparativo}
+  
+  \begin{block}{Mejor modelo: \texttt{todos\_R01\_L5}}
+    Resolución $R = 0{,}1°$, $\lambda = 5$, datos completos ($\sim$744 reg/est)
+  \end{block}
+  
+  \scriptsize
+  \begin{table}
+    \centering
+    \begin{tabular}{lcccccc}
+      \hline
+      Modelo & Loss & MSE$_{u_x}$ & MSE$_{u_y}$ & MSE$_p$ & $\mathcal{R}_{NS}$ \\
+      \hline
+      \textbf{todos\_R01\_L5} & 0,9261 & 0,4633 & 0,4347 & 1,3688 & \textbf{0,01273} \\
+      300xest\_R01\_L5 & 1,1207 & 0,4689 & 0,4647 & 1,6220 & 0,03682 \\
+      300xest\_R01\_L10 & 1,1624 & 0,4919 & 0,4966 & 1,6906 & 0,02318 \\
+      \hline
+    \end{tabular}
+  \end{table}
+  
+  \normalsize
+  \begin{itemize}
+    \item Error observacional promedio: 0,7556 (mejor entre todos)
+    \item Residual Navier-Stokes: 0,01273 (máxima coherencia física)
+  \end{itemize}
+  
+  \note[item]{Tiempo: 1,5 minutos}
+\end{frame}
+
+% ===== FRAME 14: Análisis de Convergencia (MANTENER) =====
+\begin{frame}[fragile]
+  \frametitle{Resultados: Análisis de Convergencia}
+  
+  \begin{block}{Ranking por error observacional promedio}
+    \begin{enumerate}
+      \small
+      \item (1) todos\_R01\_L5: 0,7556 (coherencia física: 0,01273)
+      \item (2) 300xest\_R01\_L5: 0,8187 (coherencia física: 0,03682)
+      \item (3) 300xest\_R01\_L10: 0,8267 (coherencia física: 0,02318)
+    \end{enumerate}
+  \end{block}
+  
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/error_u.png}
+    \tiny Error promedio $u_x$ (m/s)
+    
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/error_v.png}
+    \tiny Error promedio $u_y$ (m/s)
+  \end{columns}
+  
+  \note[item]{Gráficos: Convergencia del error en componentes de viento}
+  \note[item]{Tiempo: 1,5 minutos}
+\end{frame}
+
+% ===== FRAME 15: Distribución de Temperatura (NUEVA) =====
+\begin{frame}[fragile]
+  \frametitle{Análisis: Distribución de Temperatura}
+  
+  \begin{block}{Características del espacio de datos de entrada}
+    \begin{itemize}
+      \small
+      \item Rango regional: Caribe oceánico (16 estaciones IDEAM validadas)
+      \item Período: Octubre 2024 – Abril 2025 (16.368 observaciones horarias)
+      \item Distribución: Histograma de frecuencias por rango de temperatura
+    \end{itemize}
+  \end{block}
+  
+  \centering
+  \includegraphics[width=0.75\textwidth]{figures/em_caribe_temp_hist.png}
+  \tiny Histograma: Distribución de frecuencias de temperatura ($°$C)
+  
+  \note[item]{Tiempo: 1,5 minutos}
+  \note[item]{Justificación: Caracterizar variabilidad de entrada → calidad de reconstrucción}
+\end{frame}
+
+% ===== FRAME 16: Series Temporales (NUEVA) =====
+\begin{frame}[fragile]
+  \frametitle{Análisis: Series Temporales del Modelo}
+  
+  \begin{block}{Evolución temporal: Predicciones vs. Observadas}
+    \begin{itemize}
+      \small
+      \item Desempeño dinámico del PINN óptimo (\texttt{todos\_R01\_L5})
+      \item Validación en dominio temporal: coherencia de trayectorias
+      \item Capacidad de reconstrucción: valores puntuales en tiempo real
+    \end{itemize}
+  \end{block}
+  
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/em_caribe_time_series.png}
+  \tiny Series de tiempo: Evolución horaria del modelo vs. estaciones
+  
+  \note[item]{Tiempo: 1,5 minutos}
+  \note[item]{Clave: Validar que el modelo respeta dinámica temporal, no solo ajusta puntos}
+\end{frame}
+
+% ===== FRAME 17: Análisis de Pérdida Total Comparativa (NUEVA) =====
+\begin{frame}[fragile]
+  \frametitle{Análisis: Comparativa de Pérdida Total}
+  
+  \begin{block}{Impacto del hiperparámetro $\lambda$ en la convergencia}
+    \begin{itemize}
+      \small
+      \item $\lambda \in \{1, 3, 5, 10\}$: peso de restricción física
+      \item $L_{\text{total}} = L_{\text{data}} + \lambda \cdot L_{\text{physics}}$
+      \item Experimentos: R01 (baseline) vs. R04 (refinado)
+    \end{itemize}
+  \end{block}
+  
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/01_loss_total_comparativa.png}
+  \tiny Convergencia de pérdida total: Efecto de $\lambda$ entre experimentos
+  
+  \note[item]{Tiempo: 1,5 minutos}
+  \note[item]{Conclusión: $\lambda = 5$ ofrece balance óptimo (mín. local global)}
+\end{frame}

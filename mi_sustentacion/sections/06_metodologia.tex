@@ -1,0 +1,40 @@
+\begin{frame}[fragile]
+  \frametitle{Metodología: Datos y Dominio}
+  
+  \begin{block}{Datos de entrada}
+    Estaciones meteorológicas IDEAM, región Caribe, diciembre 2025\\
+    \textbf{Variables:} Lat/Long, tiempo, velocidad/dirección viento, presión, temperatura\\
+    \textbf{Volumen:} 16.368 registros horarios de 22 estaciones (18 validadas)
+  \end{block}
+  
+  \begin{block}{Dominio espacial}
+    \begin{tabular}{ll}
+      Latitud & 7,475° N a 11,115° N \\
+      Longitud & 76,224° O a 73,926° O \\
+      Extensión N-S & 404,7 km \\
+      Extensión E-O & 252,2 km
+    \end{tabular}
+  \end{block}
+  
+  \note[item]{Tiempo estimado: 2-3 minutos}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Metodología: Barrido de Hiperparámetros}
+  
+  \begin{block}{Configuración experimental}
+    \begin{itemize}
+      \item Epochs: 2.000
+      \item Learning rate: $1 \times 10^{-4}$ con ReduceLROnPlateau
+      \item Datos por estación: 300 registros (5.400 totales)
+      \item Malla de colocación: 304 puntos ($R = 0{,}1°$) o 44 puntos ($R = 0{,}4°$)
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Variables barridas}
+    Resolución de malla $R \in \{0{,}1°, 0{,}4°\}$\\
+    Peso físico $\lambda \in \{1, 3, 5, 10\}$
+  \end{block}
+  
+  \note[item]{Tiempo estimado: 2-3 minutos}
+\end{frame}

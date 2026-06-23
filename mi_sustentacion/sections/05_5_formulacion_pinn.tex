@@ -1,0 +1,25 @@
+\begin{frame}[fragile,shrink=8]
+  \frametitle{Formulación: Función de Pérdida Híbrida}
+  
+  Una PINN minimiza una función de pérdida que combina dos términos:
+  
+  \begin{align*}
+    \mathcal{L}_{total} = \mathcal{L}_{data} + \lambda \mathcal{L}_{physics}
+  \end{align*}
+  
+  \begin{block}{Término de datos}
+    \[\mathcal{L}_{data} = \frac{1}{N} \sum_{i=1}^{N} \left\| \hat{u}(x_i, y_i, t_i) - u^{obs}(x_i, y_i, t_i) \right\|^2\]
+    Diferencia entre predicciones y observaciones de estaciones.
+  \end{block}
+  
+  \begin{block}{Término físico}
+    \[\mathcal{L}_{physics} = \frac{1}{M} \sum_{j=1}^{M} \left\| \text{NS}_{residual}(x_j, y_j, t_j) \right\|^2\]
+    Residual de Navier-Stokes en malla de colocación (garantiza coherencia física).
+  \end{block}
+  
+  \begin{alertblock}{Hiperparámetro crítico}
+    $\lambda$ = peso del término físico (barrido: $\lambda \in \{1, 3, 5, 10\}$)
+  \end{alertblock}
+  
+  \note[item]{Tiempo: 2 minutos}
+\end{frame}

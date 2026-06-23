@@ -1,0 +1,52 @@
+\chapter{Marco teórico}
+% Contenido de marco teórico
+
+\section{Fundamentos de la Dinámica de Fluidos: Ecuaciones de Navier-Stokes}
+
+El estudio del comportamiento atmosférico se basa en las ecuaciones de Navier-Stokes (N-S), un sistema de ecuaciones diferenciales parciales (EDP) no lineales que describen el movimiento de fluidos viscosos. En el contexto meteorológico, estas ecuaciones permiten modelar la interacción entre el campo de velocidades del viento ($\mathbf{u}$) y la presión ($p$), fundamentadas en la conservación de masa y momento \citep{lukaszewicz2016navier}.
+
+La forma incompresible de estas ecuaciones se define como:
+
+$$\rho \left( \frac{\partial \mathbf{u}}{\partial t} + \mathbf{u} \cdot \nabla \mathbf{u} \right) = -\nabla p + \mu \nabla^2 \mathbf{u} + \mathbf{f}$$
+
+$$\nabla \cdot \mathbf{u} = 0$$
+
+Donde $\mathbf{u}$ representa el vector de velocidad (descompuesto en dirección y magnitud), $p$ la presión, $\rho$ la densidad del aire y $\mathbf{f}$ las fuerzas externas como el efecto Coriolis. La complejidad intrínseca de estas ecuaciones, especialmente su término no lineal $(\mathbf{u} \cdot \nabla \mathbf{u})$, limita la capacidad de los modelos numéricos tradicionales para resolver flujos a microescala sin un alto costo computacional.
+
+\section{Retos de implementación de las PINNs}
+
+Las PINNs representan un cambio de paradigma en el aprendizaje automático aplicado a las ciencias físicas. A diferencia de las redes neuronales convencionales que dependen exclusivamente de grandes volúmenes de datos, las PINNs integran las leyes de la física (en este caso, las ecuaciones de N-S) directamente en su función de pérdida o loss function \citep{raissi2019physics}.
+
+Esta integración permite que el modelo no solo aprenda de las observaciones de las estaciones meteorológicas, sino que sus predicciones respeten las restricciones físicas del movimiento del aire. Un exponente de esta tecnología es la plataforma NVIDIA Modulus, que ha demostrado reducir errores en pronósticos de lluvia del 12\% al 8\% mediante la asimilación de datos satelitales \citep{nvidia2023modulus}.
+
+\section{Redes Neuronales Informadas por la Física (PINNs)}
+
+A pesar del potencial de las PINNs, existen barreras críticas en su implementación operativa:
+
+\begin{itemize}
+    \item Inestabilidad en escalas temporales: Se han documentado derivas del 10\% en pronósticos extendidos debido a la acumulación de errores en interacciones no lineales \citep{hennigh2021nvidia}.
+
+    \item Dependencia de la infraestructura: Los modelos tradicionales requieren una red densa de estaciones para generar mallas precisas, lo que supone una limitación en regiones con cobertura intermitente.
+
+\end{itemize}
+
+\section{Justificación y contexto del caso de estudio}
+
+La presente investigación se enfoca en el desarrollo de un modelo PINN diseñado para estimar la presión atmosférica y el campo de velocidades del viento en el litoral Caribe colombiano a partir de registros dispersos de estaciones meteorológicas.
+
+\subsection{El Problema de los Vacíos de Datos}
+
+Una de las principales limitaciones del monitoreo meteorológico local es la existencia de zonas geográficas desprovistas de estaciones de observación. Esta carencia impide reconstruir de forma continua el comportamiento del viento y la presión sobre el dominio de estudio. La propuesta aquí planteada utiliza la posición geográfica y una marca de tiempo como variables de entrada, permitiendo que la red neuronal actúe como un interpolador físico capaz de estimar variables en puntos ciegos de la red de sensores.
+
+\subsection{Alcance Temporal y Entrenamiento}
+
+El modelo se fundamenta en un esquema de aprendizaje supervisado con restricciones físicas sobre un dominio espacio-temporal:
+
+\begin{itemize}
+    \item Entrenamiento: Utilización de series históricas provenientes de estaciones existentes para aprender la relación entre posición, tiempo y estado atmosférico.
+
+    \item Predicción e interpolación: Evaluación del modelo sobre una malla espacio-temporal para estimar presión y componentes del viento en puntos no observados.
+    
+\end{itemize}
+
+Al combinar el rigor de las ecuaciones de Navier-Stokes con la flexibilidad de las PINNs, este proyecto busca superar la dependencia exclusiva de la infraestructura física y proporcionar una herramienta de reconstrucción atmosférica local robusta y físicamente coherente.

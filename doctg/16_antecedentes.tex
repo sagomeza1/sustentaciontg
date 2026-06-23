@@ -1,0 +1,35 @@
+\chapter{Antecedentes}
+% Contenido de la sección Antecedentes
+
+\section{Modelos numéricos basados en ecuaciones diferenciales parciales.}
+
+El núcleo de los Modelos de Predicción Numérica del Tiempo (NWP, por sus siglas en inglés) reside en sistemas de ecuaciones diferenciales parciales (EDP) no lineales, como las ecuaciones de Navier-Stokes. Estas gobiernan la dinámica de los fluidos atmosféricos mediante el acoplamiento con ecuaciones de conservación de masa, energía y humedad. Si bien las EDP capturan la física fundamental de la atmósfera, su resolución exacta enfrenta dos obstáculos críticos: la no linealidad intrínseca (por ejemplo, el término convectivo $\mathbf{u} \cdot \nabla \mathbf{u}$) y la sensibilidad caótica a las condiciones iniciales. En este último caso, errores mínimos ($\approx 0.1\%$ en las mediciones de presión) crecen exponencialmente, lo que limita la ventana de predicción a un máximo de $\approx 10$ días \citep{lorenz1963deterministic}.
+
+Además, la discretización espaciotemporal mediante métodos de elementos o volúmenes finitos exige mallas con una resolución extremadamente alta (llegando a micras en las capas límite), lo que conlleva costos computacionales prohibitivos. Por ejemplo, el modelo del European Centre for Medium-Range Weather Forecasts (ECMWF) opera a resoluciones de $\approx 9$ km, consumiendo 2.5 millones de horas de CPU diarias \citep{ecmwf2023}. Para mitigar estos desafíos, han surgido alternativas eficientes como los esquemas Lagrange-Galerkin (LG). Estos enfoques discretizan la derivada material a lo largo de las trayectorias del flujo, transformando el problema no lineal en un sistema lineal de Stokes en cada paso de tiempo. Esto permite reducir los costos computacionales hasta en un $40\%$ en comparación con los métodos implícitos convencionales \citep{bermejo2016lagrange}.
+
+Sin embargo, su implementación en mallas no estructuradas —fundamentales para los modelos atmosféricos regionales— requiere algoritmos especializados para calcular integrales de alto orden y localizar puntos en elementos de la malla. Estos procesos pueden consumir hasta el $60\%$ del tiempo de simulación \citep{bermejo2016lagrange}. Adicionalmente, los fenómenos de subescala (como la turbulencia y la convección) se modelan mediante parametrizaciones empíricas. Por ejemplo, el modelo WRF utiliza esquemas de convección como el de Kain-Fritsch para aproximar movimientos verticales en escalas inferiores a la resolución de la malla, lo que introduce una incertidumbre sistémica de $\approx 15\%$ en los pronósticos de precipitación \citep{skamarock2019wrf}.
+
+Aunque estos métodos preservan las leyes físicas fundamentales, su escalabilidad está limitada por la necesidad de condiciones iniciales altamente precisas y recursos computacionales masivos, lo que motiva la continua búsqueda de enfoques alternativos.
+
+\section{Métodos Estadísticos Clásicos.}
+\subsection{Enfoques Clásicos: ARIMA y Procesos Gaussianos}
+
+Como alternativa a los modelos de Predicción Numérica del Tiempo (NWP), diversas técnicas estadísticas, tales como ARIMA (AutoRegressive Integrated Moving Average) y los Procesos Gaussianos (GP), analizan patrones históricos para extrapolar tendencias meteorológicas. Entre sus principales ventajas se destacan:
+
+\begin{itemize}
+    \item ARIMA: Es altamente eficaz en pronósticos de corto plazo (menores a 72 horas), ya que logra capturar la estacionalidad mediante componentes autorregresivos y de diferenciación. Por ejemplo, en la predicción de brisas costeras, este modelo reduce el error cuadrático medio (RMSE) a $1.2 m/s$, frente a los $1.8 m/s$ de los modelos físicos simples \citep{montero2021arima}.
+    
+    \item Procesos Gaussianos: Permiten un modelado probabilístico de la incertidumbre en escalas subestacionales, lo cual es fundamental para la gestión de energías renovables. En parques eólicos del Mar del Norte, estos procesos predicen rachas de viento con intervalos de confianza del 95\% \citep{hojstrup2020gaussian}.
+\end{itemize}
+
+No obstante, la desconexión de estos métodos respecto a las leyes físicas los hace vulnerables ante eventos extremos sin precedentes, como las tormentas árticas en latitudes medias, fenómeno cuya frecuencia ha aumentado debido al cambio climático \citep{ipcc2023synthesis}. Esta limitación contrasta con el desempeño de los esquemas LG, los cuales garantizan la conservación de masa y energía mediante proyecciones de Galerkin; gracias a esta base física, logran un RMSE un 30\% menor en simulaciones de ciclones tropicales en comparación con los métodos puramente estadísticos \citep{bermejo2016lagrange}.
+
+\subsection{Aprendizaje Automático Convencional}
+
+Avances recientes han posicionado a modelos como GraphCast \citep{lam2023graphcast} y FourCastNet \citep{pathak2022fourcastnet} como competidores directos de los sistemas de Predicción Numérica del Tiempo (NWP, por sus siglas en inglés). Al ser entrenados con décadas de datos de reanálisis (como el conjunto ERA5), estos modelos omiten la integración paso a paso de Ecuaciones Diferenciales Parciales (EDP), lo que reduce los tiempos de computación de horas a escasos minutos. Un caso notable es FourCastNet, capaz de predecir trayectorias de huracanes con tres días de antelación y un margen de error de $\sim 50$ km, un rendimiento equiparable al modelo IFS del ECMWF \citep{pathak2022fourcastnet}.
+
+No obstante, su naturaleza de 'caja negra' introduce desafíos críticos: se han observado inconsistencias físicas, tales como perfiles de presión no hidrostáticos o violaciones en la conservación de la energía de aproximadamente un $5\%$ en las capas altas de la atmósfera \citep{pathak2022fourcastnet}. Asimismo, su dependencia masiva de registros históricos ($\sim 5$ PB para un entrenamiento global) restringe su validez en escenarios climáticos sin precedentes, como el umbral de calentamiento global de $+2^\circ$C.
+
+\subsection{Paradigmas Híbridos}
+
+Para cerrar esta brecha, se han desarrollado enfoques híbridos que combinan la celeridad del aprendizaje automático (machine learning o ML) con el rigor físico de las ecuaciones en derivadas parciales (EDP). Un ejemplo destacado son los métodos Lagrange-Galerkin (LG) estabilizados, los cuales incorporan términos de proyección local para gestionar números de Reynolds elevados \citep{bermejo2016lagrange}. En simulaciones de flujos sobre turbinas eólicas, estos esquemas reducen las oscilaciones espurias en un 40 \% en comparación con los métodos no estabilizados. Paralelamente, las redes neuronales físicamente informadas (PINN) codifican las ecuaciones de Navier-Stokes directamente en sus funciones de pérdida; este enfoque logra un 30 \% más de precisión que los modelos de predicción numérica del tiempo (NWP) en pronósticos de intensificación rápida de huracanes \citep{yang2023physics}.

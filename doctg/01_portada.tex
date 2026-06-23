@@ -1,0 +1,38 @@
+% Portada con marco y márgenes ajustados
+\thispagestyle{empty} % sin número ni encabezado
+
+\newgeometry{left=3cm,right=2.5cm,top=3cm,bottom=2.5cm}
+\setlength{\fboxsep}{5pt} % padding interno del marco
+
+\noindent\makebox[\linewidth]{%
+\fbox{%
+\begin{minipage}[t][\textheight][t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule}%
+\centering
+
+\fontsize{12}{14}\selectfont
+Universidad Central\\[0.3cm]
+Facultad de Ingeniería y Ciencias Básicas\\[0.3cm]
+Maestría en Analítica de Datos\\[1.2cm]
+
+%[insertar imagen del logo de la universidad]
+\includegraphics[width=6.5cm]{Imagenes/01_logo-ucentral.png}\\[1.5cm]
+
+Predicción de variables meteorológicas usando una PINN basada en las ecuaciones de Navies-Stokes\\[1.2cm]
+
+Tesis de Maestría\\[1.2cm]
+
+S. Alejandro Gómez Ardila\\[1.2cm]
+% Ricardo Luis Villegas Martínez\\[1.2cm]
+
+Trabajo de grado como requisito para optar el título de:\\
+Magister en analítica de datos\\[1.2cm]
+
+Bogotá, Colombia\\
+2026
+
+\end{minipage}%
+}%
+}
+
+\restoregeometry
+\newpage % aquí cerramos la página nosotros

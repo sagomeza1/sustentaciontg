@@ -1,0 +1,17 @@
+% --------- Abstract ----------
+\begin{flushleft} % Asegura alineación izquierda para todo
+\begin{center}
+\textbf{Abstract}
+\end{center}
+\vspace{0.8\baselineskip}
+
+This project develops and evaluates a Physics-Informed Neural Network (PINN) to predict wind components ($u_x$, $u_y$) and atmospheric pressure ($p$) over the Colombian Caribbean coast during December 2025. The study addresses the reconstruction of a continuous spatio-temporal field from sparse station observations while enforcing physical consistency through inviscid Navier-Stokes constraints.
+\vspace{0.5em}
+
+The workflow included data loading and cleaning (with four stations excluded for quality issues), Cartesian projection and dimensionless normalization, collocation mesh construction, and training of a 12-hidden-layer architecture with 1200 neurons per layer for 2000 epochs. A systematic hyperparameter sweep over mesh resolution and physics-loss weight was executed, followed by a final run using all available records. In total, 13 experiments were evaluated.
+
+The best global configuration, trained with 13,392 records, achieved an average observational error of $\bar{MSE}_{obs}=0.76$ and a Navier-Stokes residual of $0.01$. Within the 300-records-per-station subset, the best configuration reached $\bar{MSE}_{obs}=0.85$. Results show a trade-off between observational fit and physical compliance, and indicate that increasing temporal data coverage simultaneously improves both criteria.
+
+\vspace{1em}
+\textbf{Keywords:} [Physics-Informed Neural Networks, PINN, Navier-Stokes, weather prediction, Colombian Caribbean, deep learning]
+\end{flushleft}

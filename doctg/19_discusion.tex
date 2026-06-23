@@ -1,0 +1,86 @@
+\chapter{Discusión}
+
+El consolidado experimental permite discutir hallazgos principales sobre el comportamiento de la PINN en el dominio meteorológico Caribe y sobre el papel de la física como regularizador en redes neuronales.
+
+La evidencia descriptiva presentada en la Figura~\ref{fig:serie_temporal_datos_caribe} y la Figura~\ref{fig:hist_temp_caribe} aporta contexto para esta discusion: el conjunto exhibe variabilidad temporal apreciable y una distribucion termica concentrada en un rango principal con colas menos densas. En conjunto, estas caracteristicas son coherentes con la necesidad de balancear ajuste observacional y regularizacion fisica durante el entrenamiento, en lugar de optimizar solo uno de los dos objetivos.
+
+\section{Naturaleza del trade-off observacional-físico}
+
+Los resultados confirman una tensión inherente entre dos objetivos: minimizar el error frente a observaciones y minimizar el residual de Navier-Stokes. Sin embargo, el trade-off no es monolítico.
+
+En el bloque $R=0{,}1^{\circ}$ con 300 registros por estación, $\lambda=5$ logró el mejor equilibrio observacional ($\overline{\text{MSE}}_{\text{obs}}=0{,}85185$) con residual físico modesto ($0{,}03682$). En contraste, $\lambda=10$ redujo el residual a $0{,}02318$ pero incrementó el error observacional a $0{,}89305$. En el bloque $R=0{,}4^{\circ}$, $\lambda=1$ favoreció el ajuste a datos ($0{,}86216$) pero dejó un residual elevado ($0{,}24141$), mientras $\lambda=10$ invirtió la prioridad ($0{,}88765$ en error, $0{,}02242$ en residual).
+
+Este patrón es consistente con la formulación de la función de pérdida combinada $\mathcal{L}_{\text{total}} = \lambda \cdot \mathcal{L}_{\text{NS}}^2 + \mathcal{L}_{u_x}^2 + \mathcal{L}_{u_y}^2 + \mathcal{L}_p^2$. El multiplicador $\lambda$ es un control explícito de preferencia: valores bajos prioriza ajuste a datos, valores altos imponen coherencia física. La pregunta científica es cuál balance es más apropiado para predicción meteorológica; en este proyecto, $\lambda=5$ emerge como un punto de equilibrio práctico.
+
+\section{Patrón crítico: inefectividad de \texorpdfstring{$\lambda = 3$}{lambda = 3}}
+
+Un hallazgo metodológico sorprendente es que $\lambda=3$ produce desempeño consistentemente desfavorable en ambas resoluciones de malla. Comparando valores adyacentes:
+\begin{itemize}
+	\item En R=0,1°: $\lambda=3$ produce $\overline{\text{MSE}}_{\text{obs}} = 1,24982$, superior tanto a $\lambda=1$ (0,86796) como a $\lambda=5$ (0,85185) y $\lambda=10$ (0,89305).
+	\item En R=0,4°: $\lambda=3$ genera $\overline{\text{MSE}}_{\text{obs}} = 1,02208$, inferior a $\lambda=1$ (0,86216) pero superior a $\lambda=5$ (1,32126) y $\lambda=10$ (0,88765).
+\end{itemize}
+
+Esto sugiere que el valor específico $\lambda=3$ introduce una tensión desequilibrada entre términos de la función de pérdida, posiblemente porque la magnitud relativa de $\lambda \cdot \mathcal{L}_{\text{NS}}$ respecto a $\mathcal{L}_{\text{datos}}$ en esa malla crea un paisaje de optimización problemático. Futuras investigaciones deberían explorar si este patrón persiste en otras arquitecturas o dominios.
+
+\section{Interacción entre \texorpdfstring{$\lambda$}{lambda} y resolución de malla}
+
+El efecto de refinar la malla (de R=0,4° a R=0,1°) no fue uniforme. Con $\lambda=5$, la malla fina fue netamente superior ($\Delta\overline{\text{MSE}} = -0{,}47$ a favor de R=0,1°). Para $\lambda=1$ y $\lambda=10$, el cambio fue marginal o ligeramente a favor de R=0,4°.
+
+Una interpretación física plausible es que una malla más fina (R=0,1°, 91.200 puntos de colocación frente a 13.200) expande significativamente el espacio donde se evalúa la restricción física. Con $\lambda$ bajo, los puntos adicionales quedan subutilizados; con $\lambda$ alto, la malla fina proporciona suficiente información física para constrair la solución efectivamente. Este acoplamiento entre densidad espacial y peso físico tiene implicaciones prácticas: no basta seleccionar $R$ y $\lambda$ independientemente.
+
+\section{Rol de la dominancia de presión en la pérdida combinada}
+
+En las corridas analizadas del proyecto, la pérdida asociada a presión ($\mathcal{L}_p$) representó aproximadamente entre el 40\% y el 60\% de la pérdida total. Este comportamiento es consistente con una asimetría de escala entre variables de salida, donde la presión tiende a aportar magnitudes de error superiores a las componentes de velocidad.
+
+Esta dominancia puede influir en la dinámica de optimización, al aumentar el peso efectivo de la presión dentro del objetivo global y condicionar el equilibrio entre ajuste observacional y restricción física. En consecuencia, parte del comportamiento observado en el barrido de hiperparámetros puede interpretarse como resultado de la interacción entre $\lambda$, resolución de malla y desbalance relativo entre componentes de pérdida.
+
+Como línea de trabajo futuro, se recomienda evaluar estrategias de balanceo entre variables que permitan mantener comparabilidad de magnitudes en la función objetivo, sin alterar la trazabilidad de los experimentos ya reportados.
+
+\section{Efecto regularizador de la restriccion suave de rango}
+
+La incorporacion de una restriccion suave de rango agrega un tercer mecanismo de control al entrenamiento, complementario al ajuste observacional y al residual fisico de Navier-Stokes. Mientras el hiperparametro $\lambda$ regula explicitamente la importancia del termino fisico, la penalizacion de rango opera sobre la plausibilidad de las magnitudes predichas en todo el dominio de colocacion.
+
+La evidencia experimental muestra que, dentro de la configuracion $R=0{,}1^{\circ}$ y $\lambda=5$, la corrida \texttt{todosreg\_R01\_L5\_rangeL05} alcanzo una perdida final de 0,638, inferior a la obtenida por la corrida equivalente sin restriccion de rango y con la totalidad de los registros disponibles (0,926 en \texttt{todos\_R01\_L5}). En la comparacion reportada, este comportamiento es consistente con la hipotesis de que la restriccion suave de rango estabiliza la optimizacion y favorece soluciones mas coherentes con el dominio fisico observado.
+
+La metrica FOR sugiere, ademas, que el efecto del mecanismo no es uniforme entre variables. Al cierre del entrenamiento, la presion mantiene una fraccion fuera de rango practicamente nula, mientras las componentes de velocidad conservan porcentajes mayores. Esto indica que la restriccion de rango no impone un encapsulamiento artificial de toda la solucion, sino una regularizacion diferenciada segun la variable y la region del dominio.
+
+\section{Beneficio sin equivalente arquitectónico: volumen de datos}
+
+La comparación más contundente del proyecto es la mejora al incluir más datos, manteniendo exactamente la arquitectura y configuración. La ampliación de 5.400 a 13.392 registros produjo reducciones simultáneas del 11,3\% en error observacional promedio y del 65,4\% en residual físico. Esto demuestra que:
+
+\begin{enumerate}
+	\item El modelo PINN en esta configuración aún opera en régimen de datos limitados (no ha saturado).
+	\item La cobertura temporal en diciembre de 2025 no es suficientemente redundante; los 744 registros por estación aportan información genuina.
+	\item La restricción física de Navier-Stokes se vuelve más efectiva cuando hay más datos que la justifiquen.
+\end{enumerate}
+
+Este resultado tiene implicaciones prácticas: si el objetivo es mejorar el modelo actual, la estrategia más clara es ampliar la cobertura temporal, antes que buscar arquitecturas alternativas.
+
+\section{Alcance y limitaciones del análisis}
+
+La evaluación de generalización temporal realizada mediante partición de los datos en
+entrenamiento (días 1–20) y prueba independiente (días 21–31) revela un patrón mixto que
+matiza el alcance de los resultados. Las componentes de velocidad del viento muestran
+degradación inferior al $5$\,\% en el conjunto de prueba ($\text{MSE}_{u_x}$: $-4{,}5$\,\%;
+$\text{MSE}_{u_y}$: $-2{,}3$\,\%), lo que indica que la restricción física de Navier-Stokes
+actúa como regularizador eficaz y favorece la transferencia temporal del campo de viento.
+En contraste, el $\text{MSE}$ de presión se incrementa un $185{,}8$\,\% en el período de prueba
+($1{,}3688 \to 3{,}9116$), confirmando sobreajuste en esta variable fuera del intervalo de
+entrenamiento. El residual de Navier-Stokes también aumenta de forma proporcional
+($0{,}01273 \to 0{,}03640$, $+186{,}0$\,\%), indicando que la coherencia física aprendida en
+los primeros 20 días no se transfiere plenamente a los 11 días siguientes.
+
+Este patrón asimétrico es consistente con las diferencias de variabilidad temporal entre
+variables: la presión atmosférica tiende a presentar mayores fluctuaciones de período
+medio-largo que las componentes de viento, lo que la hace más sensible a la extensión del
+período de entrenamiento. La restricción física de Navier-Stokes, al ser una ecuación
+cinemática local, regula la suavidad espacial del campo de velocidades con mayor eficacia
+que la evolución temporal de la presión.
+
+En consecuencia, las predicciones de viento del modelo pueden considerarse razonablemente
+confiables dentro del dominio y período estudiados, mientras que las predicciones de presión
+deben interpretarse con cautela fuera del período de entrenamiento. Además, el bloque
+$R=0{,}2^{\circ}$ permanece incompleto para varios valores de $\lambda$, por lo que el ranking
+final se interpreta sobre las corridas efectivamente evaluadas en su totalidad.
+
+

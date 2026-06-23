@@ -1,0 +1,18 @@
+RESUMEN DEL PROYECTO
+
+El proyecto surge de estudiar el documento [] donde elabora una PINN, que tiene como insumo para su entrenamiento los registros de estaciones meteorológicas que se encuentran esparcidas en una región particular de Brusselas y las ecuaciones de Navier-Stokes que rigen el comportamiento de la mecánica de fluidos.
+
+La información registrada de las estaciones meteorológicas consiste en:
+
+- Posición - Coordenadas (lat, lon)
+- Registro de tiempo
+- Velocidad del viento
+- Dirección del viento
+- Presión
+- Temperatura
+
+Los valores de velocidad y dirección de viento, se descomponen sus componentes en `x` y `y`, se obtienen los valores `vel_x` y `vel_y`.
+
+La red neuronal recibe 3 parámetros: 2 de posición (x, y) y 1 de tiempo (t), y predice los valores de presión (p), velocidad del viento en x (vel_x) y velocidad del viento en y (vel_y).
+
+Se construye una malla espacio-tiempo que servirá para predecir las condiciones en los puntos donde no se encuentran las mallas.

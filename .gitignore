@@ -1,0 +1,60 @@
+# LaTeX compilation outputs
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex
+*.run.xml
+*.dpth
+*.md5
+*.auxlock
+
+# PDF (generado)
+*.pdf
+
+# Backup files
+*.bak
+*~
+*.swp
+*.swo
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+*.Zone.Identifier
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# Temporary files
+*.tmp
+.tmp/
+temp/
+
+# Build directories
+build/
+dist/
+
+# Node (si aplica en futuro)
+node_modules/
+package-lock.json

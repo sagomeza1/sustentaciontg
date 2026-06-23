@@ -1,0 +1,137 @@
+\documentclass[12pt,letterpaper,openany]{report} % openany evita páginas en blanco entre capítulos
+
+% ===== Paquetes =====
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{pifont}
+\usepackage{times}
+\usepackage{float}
+\usepackage{array} 
+\usepackage{longtable}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{tocloft}
+\usepackage[letterpaper,left=3cm,right=2.5cm,top=3cm,bottom=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{ulem}
+\usepackage{siunitx}
+\sisetup{output-decimal-marker = {.}, round-mode=places, round-precision=3}
+
+% Bibliografía (orden correcto)
+\usepackage[natbibapa]{apacite} % <<< Formato APA
+\usepackage{hyperref}           % <<< Siempre después de apacite
+
+% ===== Encabezado con número arriba a la derecha =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{14.5pt}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[R]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% === Estilo uniforme para títulos de capítulo ===
+\usepackage{titlesec}
+\titleformat{\chapter}[block]
+  {\normalfont\bfseries\filcenter} % mismo estilo que resumen/abstract
+  {} % sin número
+  {0pt} % sin espacio extra antes del título
+  {\normalsize} % tamaño igual a texto normal
+\titlespacing*{\chapter}{0pt}{0pt}{1\baselineskip} % espacio antes y después
+
+\doublespacing
+
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+
+\begin{document}
+%\let\origcleardoublepage\cleardoublepage
+%\let\cleardoublepage\relax
+
+% ====== Portada y contraportada ======
+\pagenumbering{gobble} % sin numeración
+\input{01_portada}
+\clearpage
+\input{02_contraportada}
+\clearpage
+
+% ====== Aprobación y preliminares ======
+\pagenumbering{arabic}
+\setcounter{page}{3} % primera página numerada
+
+%\input{03_aprobacion}
+%\clearpage
+%\input{04_dedicatoria}
+%\clearpage
+%\input{05_agradecimientos}
+%\clearpage
+\input{06_resumen}
+\pagebreak
+\input{07_abstract}
+\pagebreak
+
+% ====== Índice general ======
+% \clearpage
+\tableofcontents
+\pagebreak
+
+% ====== Lista de figuras ======
+% \clearpage
+\listoffigures
+\pagebreak
+
+% ====== Lista de tablas ======
+% \clearpage
+\listoftables
+% \pagebreak
+
+% ====== Lista de siglas ======
+% \clearpage
+\input{11_siglas}
+\pagebreak
+
+% ====== Lista de anexos ======
+%\clearpage
+% \input{12_lista_anexos}
+%\clearpage
+
+% ====== Cuerpo del trabajo ======
+\input{13_introduccion}
+\clearpage
+\input{14_planteamiento_problema}
+\clearpage
+\input{15_objetivos}
+\clearpage
+\input{16_antecedentes}
+\clearpage
+\input{16_02_marco_teorico}
+\clearpage
+\input{17_metodologia}
+\clearpage
+\input{18_resultados}
+\clearpage
+\input{19_discusion}
+\clearpage
+\input{20_conclusiones}
+\clearpage
+
+% ====== Bibliografía ======
+\clearpage
+\bibliographystyle{apacite}
+\nocite{*} % incluye todas las referencias del .bib aunque no se citen
+\bibliography{21_bibliografia}
+
+% ====== Anexos ======
+\appendix
+% \input{anexos}
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+
+% === PAQUETES ===
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{listings}
+
+% === RUTAS ===
+\graphicspath{{figures/}}
+
+% === TEMA Y COLORES ===
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% === INFORMACIÓN DEL DOCUMENTO ===
+\title{Modelado de Procesos Oceanográficos en el Caribe\\con Redes Neuronales Informadas por Física (PINN)}
+\author{Autor}
+\institute{Universidad}
+\date{\today}
+
+% === CONFIGURACIÓN DE TIEMPO ===
+% Duración total estimada: 30 minutos
+% Número de diapositivas: 18-24
+
+\begin{document}
+
+% Portada
+\frame{\titlepage}
+
+% Tabla de contenidos
+\frame{\tableofcontents}
+
+% === SECCIONES ===
+
+\section{Introducción}
+\input{sections/01_introduccion.tex}
+
+\section{Planteamiento del Problema}
+\input{sections/02_planteamiento.tex}
+
+\section{Objetivos}
+\input{sections/03_objetivos.tex}
+
+\section{Antecedentes}
+\input{sections/04_antecedentes.tex}
+
+\section{Marco Teórico}
+\input{sections/05_marco_teorico.tex}
+\input{sections/05_5_formulacion_pinn.tex}
+
+\section{Metodología}
+\input{sections/06_metodologia.tex}
+
+\section{Resultados}
+\input{sections/07_resultados.tex}
+
+\section{Discusión}
+\input{sections/08_discusion.tex}
+
+\section{Conclusiones}
+\input{sections/09_conclusiones.tex}
+
+\end{document}

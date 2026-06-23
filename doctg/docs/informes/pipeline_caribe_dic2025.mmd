@@ -1,0 +1,31 @@
+flowchart TD
+    A[datos.gov.co<br/>62tk-nxj5 Presion<br/>kiw7-v9ta Direccion viento<br/>sgfv-3yp8 Velocidad viento<br/>sbwg-7ju4 Temperatura aire] --> B[cuadernos/carga_db_cundinamarca.ipynb<br/>Filtro Caribe dic 2025<br/>2025-12-01 a 2025-12-31<br/>Atlantico Bolivar Magdalena Sucre Cordoba]
+    B --> C1[Descarga paginada SoQL<br/>LIMIT OFFSET]
+    C1 --> C2[Lectura CSV a DataFrame]
+    C2 --> C3[Conversion de tipos]
+    C3 --> C4[Insercion por lotes en SQL Server]
+    C4 --> D[(EM_CAR)]
+    D --> E1[scripts_sql/creacion_base_de_datos.sql]
+    D --> E2[scripts_sql/ddl_BD.sql]
+    E2 --> F1[(dbo.presion)]
+    E2 --> F2[(dbo.dir_viento)]
+    E2 --> F3[(dbo.vel_viento)]
+    E2 --> F4[(dbo.temp_aire)]
+    F1 --> G1[scripts_sql/redondeo_lon_lat.sql]
+    F2 --> G1
+    F3 --> G1
+    F4 --> G1
+    G1 --> H[scripts_sql/coordenada_estaciones.sql]
+    H --> H1[(dbo.coordenadas_estaciones)]
+    F1 --> I[scripts_sql/estaciones_full.sql]
+    F2 --> I
+    F3 --> I
+    F4 --> I
+    I --> I1[Join por estacion y fecha]
+    I1 --> I2[(dbo.estaciones_full)]
+    I2 --> J[cuadernos/preprocesamiento.ipynb]
+    H1 --> J
+    J --> K1[Limpieza y agregado]
+    K1 --> K2[Altura + filtros + segundos + vel_u vel_v]
+    K2 --> K3[Interpolacion cubica cada 20 min]
+    K2 --> M1[data/raw/em_caribe_251201_251231.parquet]

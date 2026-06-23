@@ -1,0 +1,243 @@
+{
+  "documento": {
+    "tipo": "Registro Propuesta de Trabajo de Grado",
+    "facultad": "Facultad de Ingeniería y Ciencias Básicas",
+    "programa": "Maestría en Analítica de Datos",
+    "periodo": "2025-I",
+    "fecha_registro": "2025-05-02"
+  },
+
+  "estudiantes": [
+    {
+      "nombres": "Sebastián Alejandro",
+      "apellidos": "Gómez Ardila",
+      "tipo_identificacion": "Cédula de Ciudadanía",
+      "numero_identificacion": "1016045701",
+      "correo_institucional": "sgomeza1@ucentral.edu.co",
+      "telefono": "301 491 7036"
+    }
+  ],
+
+  "modalidad": {
+    "tipo": "Profundización",
+    "subtipo": "Trabajo monográfico",
+    "linea": "Redes Neuronales, Deep Learning"
+  },
+
+  "director": {
+    "nombres": "Diego Roldan",
+    "departamento": "FICB",
+    "correo_institucional": "droldanr@ucentral.edu.co"
+  },
+
+  "componentes": {
+
+    "titulo": "Predicción de condiciones meteorológicas usando PINNs, basadas en las ecuaciones de Navier-Stokes.",
+
+    "introduccion_justificacion": "El estudio del clima ha sido una preocupación constante a lo largo de la historia de la humanidad. Desde las antiguas civilizaciones, que basaban sus predicciones en la observación de fenómenos naturales —como las nubes, los patrones de viento o los cambios de temperatura— hasta los científicos contemporáneos, que emplean sofisticados modelos físico-matemáticos para describir el comportamiento atmosférico, la necesidad de anticipar condiciones climáticas ha sido un desafío persistente. La atmósfera es un sistema caótico gobernado por ecuaciones no lineales, donde pequeñas variaciones iniciales pueden generar divergencias significativas en las predicciones (efecto mariposa). Las PINNs (Physics-Informed Neural Networks) son arquitecturas que incorporan ecuaciones diferenciales parciales (como las ecuaciones de Navier-Stokes) directamente en su función de pérdida durante el entrenamiento, garantizando consistencia física incluso con datos escasos.",
+
+    "pregunta_investigacion": "¿Cómo pueden las PINNs integrarse con otras arquitecturas para predecir variables meteorológicas de carácter local —velocidad y dirección del viento y presión atmosférica— con mayor precisión y menor coste computacional que los métodos tradicionales, utilizando las ecuaciones de Navier-Stokes como puente entre el entrenamiento de las redes neuronales y las restricciones de la física?",
+
+    "objetivo_general": "Desarrollar un modelo híbrido basado en Redes Neuronales Físicamente Informadas (PINNs) y ecuaciones de Navier-Stokes, integrado con arquitecturas de aprendizaje secuencial (LSTM), para predecir con alta precisión las condiciones meteorológicas locales (velocidad y dirección del viento, presión atmosférica) en ventanas temporales de 24 a 72 horas. El modelo buscará optimizar el equilibrio entre precisión física y eficiencia computacional, reduciendo los costos de procesamiento en al menos un 40% frente a métodos tradicionales como el modelo WRF.",
+
+    "objetivos_especificos": [
+      {
+        "numero": 1,
+        "descripcion": "Recopilar y preparar datos meteorológicos multiescala a partir de fuentes heterogéneas, incluyendo estaciones terrestres (como las del Instituto Real Meteorológico de Bélgica), reanálisis ERA5 y datos satelitales (GOES), para construir un conjunto de entrenamiento robusto. Incluye normalización, imputación de valores faltantes mediante Kriging, y segmentación temporal capturando patrones diurnos, estacionales y eventos extremos."
+      },
+      {
+        "numero": 2,
+        "descripcion": "Diseñar y entrenar una arquitectura híbrida que integre PINNs con ecuaciones de Navier-Stokes y capas LSTM, priorizando la conservación de leyes físicas (masa, momentum y energía) mediante la incorporación de restricciones diferenciales en la función de pérdida. Optimizar hiperparámetros mediante búsqueda bayesiana, con ventanas deslizantes de 6 horas."
+      },
+      {
+        "numero": 3,
+        "descripcion": "Validar el modelo comparándolo cuantitativamente con métodos tradicionales (WRF) y de aprendizaje automático puro (GraphCast, FourCastNet), utilizando métricas como RMSE, MAE y consistencia termodinámica. Incluye pruebas de sensibilidad y análisis de rendimiento en eventos extremos (tormentas, ráfagas)."
+      },
+      {
+        "numero": 4,
+        "descripcion": "Implementar una herramienta de pronóstico accesible y reproducible mediante una API en Python con visualizaciones interactivas (Plotly, Dash). Publicar código, datos de entrenamiento y documentación técnica en GitHub bajo licencia CC-BY 4.0."
+      },
+      {
+        "numero": 5,
+        "descripcion": "Analizar el impacto socioeconómico y ambiental del modelo en sectores estratégicos: reducción de pérdidas agrícolas, optimización de gestión energética en parques eólicos, e identificación de corredores de ventilación natural en entornos urbanos."
+      }
+    ],
+
+    "antecedentes_marco_teorico": {
+      "temas_principales": [
+        {
+          "nombre": "Modelos Numéricos Basados en EDPs",
+          "descripcion": "Los Modelos de Predicción Numérica del Tiempo (NWP) se basan en sistemas de ecuaciones diferenciales parciales no lineales como las ecuaciones de Navier-Stokes. El modelo ECMWF opera a resoluciones de ~9 km, consumiendo 2.5 millones de horas de CPU diarias. Los métodos Lagrange-Galerkin (LG) reducen costos computacionales hasta en un 40% frente a métodos implícitos convencionales.",
+          "referencias_clave": ["Bermejo & Saavedra, 2016", "ECMWF, 2023", "Skamarock et al., 2019"]
+        },
+        {
+          "nombre": "Métodos Estadísticos Clásicos",
+          "subtemas": [
+            {
+              "nombre": "ARIMA y Procesos Gaussianos",
+              "descripcion": "ARIMA eficaz en pronósticos a corto plazo (<72 horas). Procesos Gaussianos para modelado probabilístico de incertidumbre en escalas subestacionales."
+            },
+            {
+              "nombre": "Aprendizaje Automático Convencional",
+              "descripcion": "GraphCast (DeepMind, 2023) y FourCastNet (NVIDIA, 2022) reducen tiempos de predicción de horas a minutos, pero generan inconsistencias físicas como violaciones de conservación de energía del ~5%.",
+              "referencias_clave": ["Pathak et al., 2022"]
+            },
+            {
+              "nombre": "Paradigmas Híbridos",
+              "descripcion": "PINNs codifican ecuaciones de Navier-Stokes directamente en funciones de pérdida, logrando un 30% más de precisión que los NWP en predicciones de intensificación rápida de huracanes.",
+              "referencias_clave": ["Yang et al., 2023"]
+            }
+          ]
+        },
+        {
+          "nombre": "Ecuaciones de Navier-Stokes",
+          "formulacion": {
+            "momento": "ρ(∂u/∂t + u·∇u) = −∇p + μ∇²u + f",
+            "continuidad": "∇·u = 0"
+          },
+          "descripcion": "Gobiernan el movimiento de líquidos y gases viscosos. Su no linealidad las convierte en uno de los 7 Problemas del Milenio del Clay Mathematics Institute (2000). Aplicaciones en ingeniería aeroespacial, medicina, astrofísica y entretenimiento.",
+          "referencias_clave": ["Lukaszewicz & Kalita, 2016", "Lorenz, 1963"]
+        },
+        {
+          "nombre": "PINNs en Meteorología",
+          "descripcion": "Introducidas por Raissi et al. (2019), integran ecuaciones gobernantes en funciones de pérdida neuronal. NVIDIA Modulus (2023) reduce errores en pronósticos de lluvia del 12% al 8%. Desafíos: inestabilidad en escalas multitemporales (~10% de deriva en 15 días) y acoplamiento con modelos operativos como WRF.",
+          "referencias_clave": ["Raissi et al., 2019", "Hennigh et al., 2021", "Yang et al., 2023"]
+        }
+      ]
+    },
+
+    "fuente_datos": {
+      "fuente_principal": "Instituto Real Meteorológico de Bélgica (RMI)",
+      "ubicacion": "Estaciones meteorológicas en los alrededores del Aeropuerto de Bruselas-Zaventem",
+      "periodo": "2018",
+      "variables": ["velocidad del viento", "dirección del viento", "presión", "temperatura", "hora de registro"],
+      "resolucion_temporal": "10 minutos",
+      "adquisicion": "Universidad Carlos III de Madrid (UC3M) - Proyecto ALARM",
+      "licencia_subconjunto": "Creative Commons Attribution 4.0 International (CC-BY 4.0)",
+      "subconjunto_publico": {
+        "descripcion": "14 días de datos publicados por Álvaro Moreno Soto en Zenodo",
+        "licencia": "CC-BY 4.0"
+      }
+    },
+
+    "aplicacion_aporte": "El proyecto contribuye a analítica de datos mediante predicción meteorológica híbrida (ML + Navier-Stokes), modelado físico-estadístico con PINNs y análisis espacio-temporal de alta resolución. Aporta a ingeniería ambiental, agricultura, gestión de desastres, energías renovables y ciencia del clima. Integra PINNs + LSTMs con bajo costo computacional y democratiza el acceso a predicciones precisas para comunidades rurales, gobiernos locales e industrias.",
+
+    "metodologia": [
+      {
+        "etapa": 1,
+        "nombre": "Recolección y Organización de Datos Climáticos",
+        "descripcion": "Obtención de información meteorológica histórica y en tiempo real (estaciones terrestres, satélites, modelos globales). Limpieza, imputación de faltantes mediante promedios geográficos y organización en intervalos regulares (por hora)."
+      },
+      {
+        "etapa": 2,
+        "nombre": "Creación de un Modelo Predictivo Híbrido",
+        "descripcion": "Diseño de modelo computacional combinando redes neuronales (patrones temporales) con ecuaciones físicas (conservación de energía). Entrenamiento en hardware especializado ajustando parámetros."
+      },
+      {
+        "etapa": 3,
+        "nombre": "Validación y Comparación con Métodos Existentes",
+        "descripcion": "Comparación de predicciones con datos reales de estaciones y con modelos tradicionales (simulaciones numéricas). Medición con métricas de error promedio y capacidad para anticipar eventos extremos."
+      },
+      {
+        "etapa": 4,
+        "nombre": "Implementación y Evaluación Práctica",
+        "descripcion": "Desarrollo de herramienta digital (página web o aplicación móvil) con predicciones en tiempo real. Código y datos compartidos públicamente. Análisis de impacto en agricultura y gestión urbana."
+      }
+    ],
+
+    "recursos": {
+      "tecnologicos": {
+        "hardware": [
+          {
+            "recurso": "Google Colab Pro",
+            "descripcion": "Suscripción mensual para acceso a GPUs premium (NVIDIA T4 o A100)"
+          }
+        ],
+        "software": [
+          "Python (TensorFlow, PyTorch, Xarray)",
+          "Plotly",
+          "Matplotlib"
+        ],
+        "datos": [
+          "ERA5 (API oficial)",
+          "GOES (API oficial)",
+          "Datos RMI - Universidad Carlos III de Madrid (autorización previa)"
+        ]
+      },
+      "humanos": [
+        {
+          "rol": "Director del proyecto",
+          "descripcion": "Asesoría en modelado físico-computacional y ajuste de ecuaciones diferenciales"
+        },
+        {
+          "rol": "Colaboradores",
+          "descripcion": "Soporte técnico del grupo de investigación de matemáticas aplicadas"
+        }
+      ],
+      "infraestructura": [
+        {
+          "recurso": "Google Drive",
+          "descripcion": "20 GB para respaldo de datasets y modelos entrenados"
+        },
+        {
+          "recurso": "GitHub Pages",
+          "descripcion": "Plataforma de despliegue gratuita para herramienta de pronóstico"
+        }
+      ]
+    },
+
+    "cronograma": {
+      "duracion_semanas": 16,
+      "actividades": [
+        { "nombre": "Recolección de datos",       "semanas": [1, 2] },
+        { "nombre": "Preprocesamiento",            "semanas": [3, 4] },
+        { "nombre": "Diseño del modelo híbrido",   "semanas": [3, 4, 5] },
+        { "nombre": "Entrenamiento y ajuste",       "semanas": [6, 7, 8, 9] },
+        { "nombre": "Validación comparativa",       "semanas": [8, 9, 10, 11] },
+        { "nombre": "Implementación API",           "semanas": [10, 11, 12] },
+        { "nombre": "Documentación y GitHub",       "semanas": [11, 12, 13] },
+        { "nombre": "Redacción final",              "semanas": [12, 13, 14, 15, 16] }
+      ]
+    },
+
+    "presupuesto": {
+      "modalidad": "Profundización",
+      "items": [
+        {
+          "descripcion": "Google Colab Pro",
+          "costo_mensual_COP": 43164.87,
+          "moneda": "COP"
+        }
+      ]
+    },
+
+    "resultados_esperados": [
+      "Modelo híbrido (PINNs + LSTM) con RMSE ≤ 1.5 m/s en velocidad del viento",
+      "Reducción del 40% en tiempo computacional vs. WRF para predicciones locales",
+      "API en Python con interfaz gráfica para usuarios no técnicos",
+      "Repositorio GitHub público con código y datos de prueba (CC-BY 4.0)"
+    ],
+
+    "bibliografia": [
+      "Aragão, L., & Porcù, F. (2022). Cyclonic activity in the Mediterranean region from a high-resolution perspective using ECMWF ERA5 dataset. Climate Dynamics, 58(5), 1293–1310.",
+      "Bermejo, R., & Saavedra, L. (2016). Lagrange–Galerkin methods for the incompressible Navier–Stokes equations: A review. Communications in Applied and Industrial Mathematics, 7(3), 26–55.",
+      "Caffarelli, L., Kohn, R., & Nirenberg, L. (1982). Partial regularity of suitable weak solutions of the Navier-Stokes equations. Communications on Pure and Applied Mathematics, 35(6), 771–831.",
+      "Cai, S., Mao, Z., Wang, Z., Yin, M., & Karniadakis, G. E. (2021). Physics-informed neural networks (PINNs) for fluid mechanics: A review. Acta Mechanica Sinica, 37(12), 1727–1738.",
+      "Chorin, A. J., & Marsden, J. E. (1990). A mathematical introduction to fluid mechanics (Vol. 3). Springer.",
+      "González Armas, K. (2023). Introducción a la mecánica de fluidos: las ecuaciones de Euler y Navier-Stokes [Trabajo de fin de grado, Universidad de La Laguna].",
+      "Hasler, A. F., Strong, J., Pierce, H., & Woodward, R. H. (1989). Automatic analysis of stereoscopic GOES/GOES and GOES/NOAA image pairs for measurement of hurricane cloud top height and structure. Conference on Satellite Meteorology and Oceanography, Boston, MA.",
+      "Hennigh, O., et al. (2021). NVIDIA SimNet™: An AI-accelerated multi-physics simulation framework. International Conference on Computational Science (pp. 447–461). Springer.",
+      "Lorenz, E. N. (1963). Deterministic nonperiodic flow. Journal of the Atmospheric Sciences, 20(2), 130–141.",
+      "Lorenz, E. N. (1972). Predictability: Does the flap of a butterfly's wings in Brazil set off a tornado in Texas? AAAS Annual Meeting.",
+      "Lukaszewicz, G., & Kalita, P. (2016). Navier–Stokes equations: An introduction with applications. Springer.",
+      "Ossendrijver, M. (2021). Babylonian mathematical astronomy. Springer.",
+      "Pathak, J., et al. (2022). FourCastNet: A global data-driven high-resolution weather model using adaptive Fourier neural operators. arXiv:2202.11214.",
+      "Raissi, M., Perdikaris, P., & Karniadakis, G. E. (2019). Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations. Journal of Computational Physics, 378, 686–707.",
+      "Skamarock, W. C., et al. (2019). A description of the Advanced Research WRF model version 4. NCAR Technical Note.",
+      "Soto, Á. M., et al. (2024). Hybrid PINNs-LSTM for local meteorological forecasting. Preprint.",
+      "Taylor, C. A., & Figueroa, C. A. (2009). Patient-specific modeling of cardiovascular mechanics. Annual Review of Biomedical Engineering, 11, 109–134.",
+      "World Meteorological Organization (WMO). (2023). State of Global Climate 2022. WMO-No. 1316.",
+      "Yang, L., et al. (2023). Physics-informed neural networks for rapid hurricane intensity prediction. Geophysical Research Letters, 50(3)."
+    ]
+  }
+}
