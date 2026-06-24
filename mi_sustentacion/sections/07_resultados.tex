@@ -71,12 +71,16 @@
     \end{itemize}
   \end{block}
   
-  \centering
-  \includegraphics[width=0.75\textwidth]{figures/em_caribe_temp_hist.png}
-  \tiny Histograma: Distribución de frecuencias de temperatura ($°$C)
-  
   \note[item]{Tiempo: 1,5 minutos}
   \note[item]{Justificación: Caracterizar variabilidad de entrada → calidad de reconstrucción}
+\end{frame}
+
+% ===== FRAME 15B: Gráfico Distribución de Temperatura (NUEVA) =====
+\begin{frame}[fragile,plain,c]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/em_caribe_temp_hist.png}
+  
+  \tiny Histograma: Distribución de frecuencias de temperatura ($°$C)
 \end{frame}
 
 % ===== FRAME 16: Series Temporales (NUEVA) =====
@@ -92,12 +96,16 @@
     \end{itemize}
   \end{block}
   
-  \centering
-  \includegraphics[width=0.85\textwidth]{figures/em_caribe_time_series.png}
-  \tiny Series de tiempo: Evolución horaria del modelo vs. estaciones
-  
   \note[item]{Tiempo: 1,5 minutos}
   \note[item]{Clave: Validar que el modelo respeta dinámica temporal, no solo ajusta puntos}
+\end{frame}
+
+% ===== FRAME 16B: Gráfico Series Temporales (NUEVA) =====
+\begin{frame}[fragile,plain,c]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/em_caribe_time_series.png}
+  
+  \tiny Series de tiempo: Evolución horaria del modelo vs. estaciones
 \end{frame}
 
 % ===== FRAME 17: Análisis de Pérdida Total Comparativa (NUEVA) =====
@@ -119,4 +127,30 @@
   
   \note[item]{Tiempo: 1,5 minutos}
   \note[item]{Conclusión: $\lambda = 5$ ofrece balance óptimo (mín. local global)}
+\end{frame}
+
+% ===== FRAME 18: Campos Predichos de Velocidad (NUEVA) =====
+\begin{frame}[fragile]
+  \frametitle{Resultados: Campos Predichos de Velocidad}
+
+  \begin{block}{Interpretación física de la mejor corrida con restricción de rango}
+    La configuración \texttt{todosreg\_R01\_L5\_rangeL05} no solo reduce la pérdida total,
+    sino que genera campos espaciales continuos y físicamente plausibles para las componentes
+    horizontales del viento sobre el dominio Caribe.
+  \end{block}
+
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/pinn_campo_u_t134.png}
+    \tiny Campo predicho final de $u$
+
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/pinn_campo_v_t134.png}
+    \tiny Campo predicho final de $v$
+  \end{columns}
+
+  \note[item]{Tiempo: 1,5 minutos}
+  \note[item]{Clave: traducir la mejora en pérdida a una evidencia espacial interpretable}
 \end{frame}

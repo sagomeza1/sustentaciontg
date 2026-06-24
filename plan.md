@@ -150,3 +150,30 @@ TOTAL: 20-21 diapositivas | ~30 minutos (1.4 min/frame)
 - `checkpoints/INSTRUCCIONES_resumen.md` — Formalización de instrucciones
 - `mi_sustentacion/FASE3_calibracion_v2.md` — Análisis detallado de timing
 
+---
+
+## Actualización Dinámica — Post-Revalidación (2026-06-23, tarde)
+
+### Fase 5: Ajustes Visuales y Reestructuración de Frames
+**Estado:** Completada ✓
+- [x] Corregir título final de portada:
+  - [x] `Predicción de variables meteorológicas usando una PINN basada en las ecuaciones de Navier-Stokes`
+- [x] Alinear color de elementos de lista con identidad visual (`ColorVerdeOliva`)
+- [x] Ajustar color de círculos numerados en tabla de contenidos (`section number in toc`)
+- [x] Separar imagen de **Distribución de Temperatura** a una diapositiva independiente
+- [x] Separar imagen de **Series Temporales del Modelo** a una diapositiva independiente
+- [x] Recompilar PDF y validar salida
+
+### Estado actual del artefacto
+- **Archivo:** `mi_sustentacion/main.pdf`
+- **Páginas:** 25
+- **Tamaño:** 2.38 MB (aprox.)
+- **Compilación:** exitosa (sin errores fatales)
+
+### Impacto sobre planificación
+- La estructura pasó de enfoque 20-22 a **25 diapositivas** tras separar dos visualizaciones en frames dedicados.
+- Se recomienda una micro-calibración final de tiempos para mantener la sustentación en 30 minutos.
+
+### Referencia de nuevo checkpoint
+- `checkpoints/plan_fase5_ajustes_visuales_completada.md` — Ajustes visuales y separación de imágenes en resultados
+

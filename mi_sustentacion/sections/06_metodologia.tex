@@ -20,6 +20,29 @@
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Metodología: Arquitectura de la PINN}
+  
+  \begin{block}{Estructura de la red neuronal}
+    \begin{itemize}
+      \item \textbf{12 capas} con \textbf{1.200 neuronas} cada una
+      \item Capa personalizada \texttt{GammaBiasLayer}: Weight Normalization desacoplada
+      \item Parámetros entrenables: $\approx$ 15,89 millones
+      \item Entrada: $(x, y, t)$ normalizado | Salida: $(u_x, u_y, p)$ adimensional
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Diseño y regularización}
+    \begin{itemize}
+      \item \textbf{8 capas Tanh} (no linealidad) + \textbf{4 capas Lineales} (regularización implícita)
+      \item Pérdida física evaluada en 226.176 puntos de colocación (regularizador)
+      \item Ratio parámetros/datos: 1.186:1 para 13.392 puntos de entrenamiento
+    \end{itemize}
+  \end{block}
+  
+  \note[item]{Tiempo estimado: 2-3 minutos}
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{Metodología: Barrido de Hiperparámetros}
   
   \begin{block}{Configuración experimental}
