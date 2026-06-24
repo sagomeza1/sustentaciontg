@@ -17,9 +17,9 @@
 *.auxlock
 
 # PDF (generado)
-*.pdf
+#*.pdf
 
-# Backup files
+# Backup pdf
 *.bak
 *~
 *.swp
