@@ -15,6 +15,9 @@
       \hline
       \textbf{\textcolor{ColorVerdeOliva}{todos\_R01\_L5}} & 0,9261 & 0,4633 & 0,4347 & 1,3688 & \textbf{\textcolor{ColorRojoVino}{0,01273}} \\
       300xest\_R01\_L5 & 1,1207 & 0,4689 & 0,4647 & 1,6220 & 0,03682 \\
+      300xest\_R04\_L1 & 1,0575 & 0,5059 & 0,5085 & 1,5720 & 0,24141 \\
+      300xest\_R01\_L1 & 1,1380 & 0,4806 & 0,4756 & 1,6477 & 0,20107 \\
+      300xest\_R04\_L10 & 1,0859 & 0,5220 & 0,5224 & 1,6185 & 0,02242 \\
       300xest\_R01\_L10 & 1,1624 & 0,4919 & 0,4966 & 1,6906 & 0,02318 \\
       \hline
     \end{tabular}
@@ -58,78 +61,102 @@
   \note[item]{Tiempo: 1,5 minutos}
 \end{frame}
 
-% ===== FRAME 15: Distribución de Temperatura (NUEVA) =====
-\begin{frame}[fragile]
-  \frametitle{Análisis: Distribución de Temperatura}
-  
-  \begin{block}{Características del espacio de datos de entrada}
+% ===== FRAME 15: Validación Fuera de Muestra (NUEVA) =====
+\begin{frame}[fragile,shrink=8]
+  \frametitle{Resultados: Validación Fuera de Muestra}
+
+  \begin{block}{Tabla 5.8: Comparación de métricas (train vs. test temporal)}
+    \scriptsize
+    \centering
+    \begin{tabular}{lccc}
+      \hline
+      Métrica & Entrenamiento (días 1--20) & Prueba (días 21--31) & Diferencia \\
+      \hline
+      $\text{MSE}_{u_x}$ & 0{,}4633 & \textbf{0{,}4422} & $-4{,}5$\,\% \\
+      $\text{MSE}_{u_y}$ & 0{,}4347 & \textbf{0{,}4248} & $-2{,}3$\,\% \\
+      $\text{MSE}_{p}$   & 1{,}3688 & \textbf{3{,}9116} & $+185{,}8$\,\% \\
+      $\mathcal{R}_{\text{NS}}$ & 0{,}01273 & \textbf{0{,}03640} & $+186{,}0$\,\% \\
+      \hline
+    \end{tabular}
+  \end{block}
+
+  \begin{block}{Lectura técnica}
     \begin{itemize}
       \small
-      \item Rango regional: Caribe oceánico (16 estaciones IDEAM validadas)
-      \item Período: Octubre 2024 – Abril 2025 (16.368 observaciones horarias)
-      \item Distribución: Histograma de frecuencias por rango de temperatura
+      \item Generalización favorable en viento: $u_x$ y $u_y$ se mantienen estables en prueba.
+      \item Brecha crítica en presión y residual físico: evidencia de dificultad de extrapolación temporal.
+      \item Mensaje clave: buena robustez para velocidad, cautela para presión fuera del período de entrenamiento.
     \end{itemize}
   \end{block}
-  
+
   \note[item]{Tiempo: 1,5 minutos}
-  \note[item]{Justificación: Caracterizar variabilidad de entrada → calidad de reconstrucción}
-\end{frame}
-
-% ===== FRAME 15B: Gráfico Distribución de Temperatura (NUEVA) =====
-\begin{frame}[fragile,plain,c]
-  \centering
-  \includegraphics[width=0.85\textwidth]{figures/em_caribe_temp_hist.png}
-  
-  \tiny Histograma: Distribución de frecuencias de temperatura ($°$C)
-\end{frame}
-
-% ===== FRAME 16: Series Temporales (NUEVA) =====
-\begin{frame}[fragile]
-  \frametitle{Análisis: Series Temporales del Modelo}
-  
-  \begin{block}{Evolución temporal: Predicciones vs. Observadas}
-    \begin{itemize}
-      \small
-      \item Desempeño dinámico del PINN óptimo (\texttt{todos\_R01\_L5})
-      \item Validación en dominio temporal: coherencia de trayectorias
-      \item Capacidad de reconstrucción: valores puntuales en tiempo real
-    \end{itemize}
-  \end{block}
-  
-  \note[item]{Tiempo: 1,5 minutos}
-  \note[item]{Clave: Validar que el modelo respeta dinámica temporal, no solo ajusta puntos}
-\end{frame}
-
-% ===== FRAME 16B: Gráfico Series Temporales (NUEVA) =====
-\begin{frame}[fragile,plain,c]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figures/em_caribe_time_series.png}
-  
-  \tiny Series de tiempo: Evolución horaria del modelo vs. estaciones
+  \note[item]{Fuente: Tabla 5.8 de la sección 5.5 (validación fuera de muestra)}
 \end{frame}
 
 % ===== FRAME 17: Análisis de Pérdida Total Comparativa (NUEVA) =====
 \begin{frame}[fragile]
   \frametitle{Análisis: Comparativa de Pérdida Total}
   
-  \begin{block}{Impacto del hiperparámetro $\lambda$ en la convergencia}
+  \begin{block}{Tabla 5.4: Comparación de resoluciones ($\overline{\text{MSE}}_{\text{obs}}$)}
+    \scriptsize
+    \centering
+    \begin{tabular}{ccccc}
+      \hline
+      $\lambda$ & R=0,1 & R=0,4 & $\Delta$ (R0,4 - R0,1) & Mejor R \\
+      \hline
+      1  & 0,86796 & 0,86216 & -0,0058 & 0,4 \\
+      3  & 1,24982 & 1,02208 & -0,2277 & 0,4 \\
+      5  & 0,85185 & 1,32126 & +0,4694 & \textbf{0,1} \\
+      10 & 0,89305 & 0,88765 & -0,0054 & 0,4 \\
+      \hline
+    \end{tabular}
+  \end{block}
+
+  \begin{block}{Lectura técnica}
     \begin{itemize}
       \small
-      \item $\lambda \in \{1, 3, 5, 10\}$: peso de restricción física
-      \item $L_{\text{total}} = L_{\text{data}} + \lambda \cdot L_{\text{physics}}$
-      \item Experimentos: R01 (baseline) vs. R04 (refinado)
+      \item R=0,4 domina en $\lambda \in \{1,3,10\}$.
+      \item El único caso donde la malla fina supera claramente es $\lambda = 5$.
+      \item Decisión final: R=0,1 con $\lambda = 5$ por mejor equilibrio en el régimen óptimo.
     \end{itemize}
   \end{block}
   
-  \centering
-  \includegraphics[width=0.8\textwidth]{figures/01_loss_total_comparativa.png}
-  \tiny Convergencia de pérdida total: Efecto de $\lambda$ entre experimentos
-  
   \note[item]{Tiempo: 1,5 minutos}
-  \note[item]{Conclusión: $\lambda = 5$ ofrece balance óptimo (mín. local global)}
+  \note[item]{Fuente: Tabla 5.4 (Comparación de resoluciones), doctg/18_resultados.tex}
 \end{frame}
 
-% ===== FRAME 18: Campos Predichos de Velocidad (NUEVA) =====
+% ===== FRAME 18: Efecto de la Restricción Suave de Rango (NUEVA) =====
+\begin{frame}[fragile]
+  \frametitle{Resultados: Efecto de la Restricción Suave de Rango}
+
+  \begin{block}{Tabla 5.6: Comparación de pérdida final (época 2.000)}
+    \scriptsize
+    \centering
+    \begin{tabular}{lccc}
+      \hline
+      Experimento & Registros totales & Mecanismo de rango & Loss final \\
+      \hline
+      \texttt{300xest\_R01\_L5} & 5.400 & No & 1,117 \\
+      \texttt{todos\_R01\_L5} & 13.392 & No & 0,926 \\
+      \texttt{todosreg\_R01\_L5\_rangeL05} & 13.392 & Sí & \textbf{0,638} \\
+      \hline
+    \end{tabular}
+  \end{block}
+
+  \begin{block}{Lectura técnica (sección 5.4.6)}
+    \begin{itemize}
+      \small
+      \item Manteniendo $R=0{,}1^\circ$ y $\lambda=5$, activar rango reduce la loss final de 0,926 a 0,638.
+      \item Reducción relativa frente al modelo equivalente sin rango: \textbf{-31,1\%}.
+      \item La restricción de rango regulariza la optimización y mejora la plausibilidad del campo previo a visualizar $u$ y $v$.
+    \end{itemize}
+  \end{block}
+
+  \note[item]{Tiempo: 1,5 minutos}
+  \note[item]{Transición: esta mejora en loss se evidencia espacialmente en los campos predichos de velocidad}
+\end{frame}
+
+% ===== FRAME 19: Campos Predichos de Velocidad (NUEVA) =====
 \begin{frame}[fragile]
   \frametitle{Resultados: Campos Predichos de Velocidad}
 

@@ -36,8 +36,10 @@
 \setbeamercolor{title}{fg=white, bg=ColorVerdeOliva}
 \setbeamercolor{titlelike}{fg=white, bg=ColorVerdeOliva}
 \setbeamercolor{section in toc}{fg=ColorVerdeOliva}
+\setbeamercolor{section in toc shaded}{fg=ColorNegroTex}
 \setbeamercolor{section number in toc}{bg=ColorVerdeOliva, fg=white}
 \setbeamercolor{subsection number in toc}{bg=ColorVerdeOliva, fg=white}
+\setbeamercolor{subsection in toc shaded}{fg=ColorNegroTex}
 \setbeamercolor{itemize item}{fg=ColorVerdeOliva}
 \setbeamercolor{itemize subitem}{fg=ColorVerdeOliva}
 \setbeamercolor{itemize subsubitem}{fg=ColorVerdeOliva}
@@ -59,7 +61,8 @@
 
 % === INFORMACIÓN DEL DOCUMENTO ===
 \title[Predicción PINN Meteorología]{Predicción de variables meteorológicas usando una PINN basada en las ecuaciones de Navier-Stokes}
-\author[S. A. Gómez Ardila]{S. Alejandro Gómez Ardila}
+\author[S. A. Gómez Ardila]{Sebastián Alejandro Gómez Ardila\\[0.4em]
+\small Director de tesis: Dr. Diego Roldan}
 \institute[Universidad Central]{Universidad Central\\Facultad de Ingeniería y Ciencias Básicas\\Maestría en Analítica de Datos}
 \date[2026]{2026}
 
@@ -73,7 +76,10 @@
 \frame{\titlepage}
 
 % Tabla de contenidos
-\frame{\tableofcontents}
+\begin{frame}
+\frametitle{Contenido}
+\tableofcontents
+\end{frame}
 
 % === SECCIONES ===
 
